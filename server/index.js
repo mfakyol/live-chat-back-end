@@ -10,6 +10,7 @@ import MessageModel from "./models/Message.model";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 
+const port = process.env.PORT || 3001;
 connectDb();
 
 const app = express();
@@ -291,8 +292,8 @@ app.get("/", async (req, res) => {
   );
 });
 
-server.listen(3001, () => {
-  console.log("Server has benn started at http://localhost:3001");
+server.listen(port, () => {
+  console.log("Server has benn started at http://localhost:" + port);
 });
 
 // app.post("/addFriend",  (req, res) => {
