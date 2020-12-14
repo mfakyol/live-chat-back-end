@@ -208,7 +208,6 @@ io.on("connection", async (socket) => {
   socket.on("getLastMessages", (chatId, callback) => {
     MessageModel.find({ chatId })
       .sort({ sentDate: -1 })
-      .limit(50)
       .then((messages) => {
         callback(null, messages.reverse());
       })
@@ -272,7 +271,6 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("changeDescription", (description, callback) => {
-    console.log("changed");
     UserModel.updateOne({ _id: user._id }, { $set: { description } })
       .then((data) => {
         callback(null, true);
@@ -416,12 +414,12 @@ io.on("connection", async (socket) => {
           });
       });
   });
+
   socket.on("setNotificationLastSeen", (date) => {
     RequestFeedbackModel.updateMany(
       { sender: user._id, isSeen: false, sentDate: {$lt: new Date(date)} },
       { $set: { isSeen: true } }
     ).then()
-    console.log(date);
   });
 
   socket.on("answerRequest", (requestId, answer, callback) => {
