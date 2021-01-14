@@ -188,7 +188,7 @@ io.on("connection", async (socket) => {
           )[0];
           const s = users[recipient];
           if (s) {
-            io.to(s).emit("newMessage", message);
+            io.to(s).emit("newMessage", messageData);
           }
           ChatModel.updateOne(
             { _id: chatId },
@@ -208,10 +208,20 @@ io.on("connection", async (socket) => {
   socket.on("getLastMessages", (chatId, callback) => {
     MessageModel.find({ chatId })
       .sort({ sentDate: -1 })
+      .limit(20)
       .then((messages) => {
-        callback(null, messages.reverse());
+        setTimeout(() => {
+          callback(null, messages.reverse());
+        }, 1000);
       })
       .catch((err) => callback(err, null));
+  });
+
+  socket.on("getOldMessages",(chatId, date, callback) =>{
+    MessageModel.find({chatId, sentDate: {$lt: new Date(date)}}).sort({sentDate: -1}).limit(20).then(messages=>{
+      callback(null, messages.reverse())
+    })
+    
   });
 
   socket.on("setLastSeen", (chatId, date, callback) => {
@@ -526,21 +536,6 @@ app.get("/", async (req, res) => {
   );
 });
 
-server.listen("3001", "192.168.1.5", () => {
+server.listen("3001", () => {
   console.log("Server has benn started at http://localhost:" + port);
 });
-
-// app.post("/addFriend",  (req, res) => {
-//   let chat = new ChatModel();
-//   const {user1, user2} = req.body;
-//   chat.members.push(user1)
-//   chat.members.push(user2)
-//   chat.save()
-//   .then( data => UserModel.updateMany({
-//     _id:{
-//       $in:[user1, user2]
-//     }
-//   },{ $push: { chats: chat._id } }))
-//   .then(data => res.send(data))
-
-// });
