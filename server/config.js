@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+mongoose.set('useFindAndModify', false);
+
 const dbConnectionString = "mongodb+srv://dbuser_1:rBgQLBLQ0ZvMD1d9@cluster0.hfsxe.mongodb.net/live_chat_db?retryWrites=true&w=majority";
 
 export default {

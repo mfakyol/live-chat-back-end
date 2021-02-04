@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="assest/favicon.ico" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/93d9da944e.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Live Chat</title>
+    <link rel="stylesheet" href="home/style.css" />
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" class="menu-icon" />
+      <span class="hamburger"></span>
+      <nav>
+        <div class="brand">
+          <a href="/"> Live Chat</a>
+        </div>
+        <ul class="nav-items">
+          <li class="nav-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a href="/contact">Contact Us</a>
+          </li>
+        </ul>
+
+        <div class="buttons">
+          <a class="signin" href="/#form">Sign In</a>
+          <a class="signup" href="/sign-up">Sign Up</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div id="force-quit-message" class="force-quit-message">
+        <span>This session has been terminated due to login from another device.</span>
+        <i id="force-quit-close" class="fas fa-times"></i>
+      </div>
+      <div class="context">
+        <h2 class="slogan">
+          Text with your friends 😎, family👪, colleagues🤓.
+        </h2>
+        <a class="join-them-now" href="/signup"> Join Them Now</a>
+        <form id="form">
+          <h3>Sign In</h3>
+          <hr />
+          <p id="err" class="err">
+            <span></span><i id="err-close" class="fas fa-times close-err"></i>
+          </p>
+          <p>Email</p>
+          <input id="email" type="email" required />
+          <p>Password</p>
+          <input id="password" type="password" autocomplete="off" required />
+          <button id="submit-button" type="submit">Sign In</button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-list">
+        <a class="footer-list-item" href="/">Home</a>
+        <a class="footer-list-item" href="/about">About Us</a>
+        <a class="footer-list-item" href="/contact">Contact Us</a>
+        <a class="footer-list-item" href="https://github.com/mfakyol">Github</a>
+      </div>
+      <div class="creator-container">
+        Creator: <a class="creator" href="/">@mfakyol</a>
+      </div>
+    </footer>
+    <script src="home/app.js"></script>
+  </body>
+</html>

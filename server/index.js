@@ -1,5 +1,7 @@
 import fs from "fs";
+import path from "path";
 import cors from "cors";
+import helmet from "helmet";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
@@ -17,9 +19,13 @@ connectDb();
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
+//app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, "private")));
 
 AppRoutes(app);
 
@@ -51,9 +57,15 @@ io.on("connection", async (socket) => {
     socket.disconnect();
     return;
   }
+
   console.log("user connected");
   const user = await UserModel.findOne({ apiKey })
     .then((user) => {
+      if (users[user.id]) {
+        io.to(users[user._id]).emit("forceQuit");
+        io.sockets.sockets.get(users[user._id]).disconnect();
+      }
+
       users[user._id] = socket.id;
       sockets[socket.id] = user._id;
       return user;
@@ -206,7 +218,7 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("getLastMessages", (chatId, callback) => {
-    MessageModel.find({ chatId })
+    MessageModel.find({ chatId, isDeleted: false })
       .sort({ sentDate: -1 })
       .limit(20)
       .then((messages) => {
@@ -217,11 +229,17 @@ io.on("connection", async (socket) => {
       .catch((err) => callback(err, null));
   });
 
-  socket.on("getOldMessages",(chatId, date, callback) =>{
-    MessageModel.find({chatId, sentDate: {$lt: new Date(date)}}).sort({sentDate: -1}).limit(20).then(messages=>{
-      callback(null, messages.reverse())
+  socket.on("getOldMessages", (chatId, date, callback) => {
+    MessageModel.find({
+      chatId,
+      isDeleted: false,
+      sentDate: { $lt: new Date(date) },
     })
-    
+      .sort({ sentDate: -1 })
+      .limit(20)
+      .then((messages) => {
+        callback(null, messages.reverse());
+      });
   });
 
   socket.on("setLastSeen", (chatId, date, callback) => {
@@ -427,9 +445,9 @@ io.on("connection", async (socket) => {
 
   socket.on("setNotificationLastSeen", (date) => {
     RequestFeedbackModel.updateMany(
-      { sender: user._id, isSeen: false, sentDate: {$lt: new Date(date)} },
+      { sender: user._id, isSeen: false, sentDate: { $lt: new Date(date) } },
       { $set: { isSeen: true } }
-    ).then()
+    ).then();
   });
 
   socket.on("answerRequest", (requestId, answer, callback) => {
@@ -520,6 +538,15 @@ io.on("connection", async (socket) => {
     });
   });
 
+  socket.on("deleteMessage", (id, callback) => {
+    MessageModel.findOneAndUpdate({ _id: id }, { isDeleted: true })
+      .then((data) => {
+        if (data) return callback(null, true);
+        callback(null, false);
+      })
+      .catch((e) => callback(null, false));
+  });
+
   socket.on("disconnect", () => {
     UserModel.updateOne({ apiKey }, { $set: { isOnline: false } });
     delete users[user._id];
@@ -530,12 +557,6 @@ io.on("connection", async (socket) => {
   });
 });
 
-app.get("/", async (req, res) => {
-  res.send(
-    "Ok server working..  <br> <a href='/api/v1/example'>Click for test routes..</a>"
-  );
-});
-
-server.listen("3001", () => {
+server.listen(port, () => {
   console.log("Server has benn started at http://localhost:" + port);
 });

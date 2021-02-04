@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  background-color: #f6f7eb;
+  z-index: 100;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+a:hover {
+  text-decoration: underline;
+  transition: 0.5s;
+}
+
+.brand > a {
+  display: inline-block;
+  padding: 15px;
+  color: #3f88c5;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.nav-items {
+  list-style: none;
+}
+
+.nav-item {
+  margin: 0 15px;
+  float: left;
+}
+
+.nav-item > a {
+  color: #3f88c5;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.buttons {
+  margin-right: 15px;
+}
+
+.buttons > a {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  color: #f6f7eb;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.buttons > .signin {
+  color: #3f88c5;
+}
+
+.buttons > .signup {
+  background-color: #3f88c5;
+}
+
+.buttons > .signup:hover {
+  background-color: #f6f7eb;
+  color: #3f88c5;
+}
+
+.menu-icon {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  position: absolute;
+  border-bottom: 4px solid #172121;
+  transition: 0.3s ease-in-out;
+  display: block;
+  width: 40px;
+}
+
+.hamburger {
+  display: none;
+  top: 28px;
+  right: 10px;
+  width: 40px;
+  pointer-events: none;
+}
+
+.hamburger:before {
+  content: "";
+  top: -10px;
+}
+
+.hamburger::after {
+  content: "";
+  top: 10px;
+}
+
+.menu-icon:checked + .hamburger {
+  border-color: transparent;
+}
+
+.menu-icon:checked + .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.menu-icon:checked + .hamburger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 699px) {
+  nav {
+    display: block;
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .nav-items {
+    display: inline-block;
+    float: left;
+    width: 60%;
+    height: 60px;
+  }
+
+  .nav-item {
+    margin-top: 15px;
+  }
+
+  .buttons {
+    display: inline-block;
+    width: 35%;
+    float: right;
+  }
+
+  .menu-icon:checked + .hamburger + nav {
+    height: 130px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .header {
+    display: block;
+    animation-duration: 0.3s;
+    animation-name: collapse;
+  }
+
+  .menu-icon:checked ~ .nav-items {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 499px) {
+  .menu-icon:checked + .hamburger + nav {
+    height: 190px;
+  }
+
+  .nav-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 60px;
+  }
+  .buttons {
+    float: right;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Main */
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url(/assest/section-a-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  padding-top: 100px;
+}
+
+main > .shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(50, 50, 50, 0.3) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );    z-index: 0;
+}
+
+main > .context {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Footer*/
+
+footer {
+  width: 100%;
+  background-color: #272727;
+}
+
+footer a {
+  text-align: center;
+  text-decoration: none;
+  color: #f6f7eb;
+  font-size: 14px;
+}
+
+.footer-list {
+  max-width: 400px;
+  width: 50%;
+  margin: 0 auto;
+  padding: 35px 0;
+}
+.footer-list-item {
+  float: left;
+  display: block;
+  width: 25%;
+}
+
+.creator-container {
+  text-align: center;
+  padding-bottom: 20px;
+  color: #f6f7eb;
+}
+
+.creator {
+  display: inline-block;
+}
+
+@media (max-width: 499px) {
+  .footer-list-item {
+    width: 50%;
+  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

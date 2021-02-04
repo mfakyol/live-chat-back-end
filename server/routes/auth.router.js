@@ -5,6 +5,7 @@ import UserModel from "../models/User.model.js";
 import emailValidator from "../validators/email.validator";
 import ActivationCodeValidator from "../validators/activationCode.validator";
 import jwt from "jsonwebtoken";
+import sendRegisterMail from "../../mail-service/mails/sendRegisterMail";
 
 const route = () => {
   const router = new express.Router();
@@ -12,7 +13,6 @@ const route = () => {
   // login
   router.route("/").get((req, res) => {
     let { email = "", password = "" } = req.query;
-
     password = crypto
       .createHmac("sha256", password)
       .update(config.hashSecret)
@@ -60,13 +60,16 @@ const route = () => {
         .digest("hex");
       user
         .save()
-        .then((user) =>
+        .then((user) =>{
+          sendRegisterMail(user.email, user.activationCode)
           res.send({
             status: true,
             message:
               `Registration is successful. We sent an email to ${user.email} activate your account. Please check your mails.` +
               user.activationCode,
           })
+        }
+
         )
         .catch((err) => {
           if (err.code === 11000) {
@@ -84,7 +87,6 @@ const route = () => {
   // activateAccount
   router.route("/").put((req, res) => {
     let { email, activationCode } = req.body;
-
     if (emailValidator(email) && ActivationCodeValidator(activationCode)) {
       UserModel.updateOne(
         { email, activationCode, status: "N" },

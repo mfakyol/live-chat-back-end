@@ -4,11 +4,11 @@ import transporter from '../transporter'
 export default function(email, activationCode){
 
 const mailOptions = {
-    from: 'senderEmail',
+    from: 'Live Chat',
     to: email,
-    subject: 'Ossis Aktivasyon Kodu',
-    text: `Aktivasyon Kodu: ${activationCode}`,
+    subject: 'Activation Code',
+    text: `Activation Code: ${activationCode}`,
   };
 
-  transporter.sendMail(mailOptions).then(info => console.log('Sent a register e-mail.'));
+  //transporter.sendMail(mailOptions).then(info => console.log('Sent a register e-mail.'));
 }

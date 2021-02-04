@@ -1,0 +1,409 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  background-color: #f6f7eb;
+  z-index: 100;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+a:hover {
+  text-decoration: underline;
+  transition: 0.5s;
+}
+
+.brand > a {
+  display: inline-block;
+  padding: 15px;
+  color: #3f88c5;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.nav-items {
+  list-style: none;
+}
+
+.nav-item {
+  margin: 0 15px;
+  float: left;
+}
+
+.nav-item > a {
+  color: #3f88c5;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.buttons {
+  margin-right: 15px;
+}
+
+.buttons > a {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  color: #f6f7eb;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.buttons > .signin {
+  color: #3f88c5;
+}
+
+.buttons > .signup {
+  background-color: #3f88c5;
+}
+
+.buttons > .signup:hover {
+  background-color: #f6f7eb;
+  color: #3f88c5;
+}
+
+.menu-icon {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  position: absolute;
+  border-bottom: 4px solid #172121;
+  transition: 0.3s ease-in-out;
+  display: block;
+  width: 40px;
+}
+
+.hamburger {
+  display: none;
+  top: 28px;
+  right: 10px;
+  width: 40px;
+  pointer-events: none;
+}
+
+.hamburger:before {
+  content: "";
+  top: -10px;
+}
+
+.hamburger::after {
+  content: "";
+  top: 10px;
+}
+
+.menu-icon:checked + .hamburger {
+  border-color: transparent;
+}
+
+.menu-icon:checked + .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.menu-icon:checked + .hamburger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 699px) {
+  nav {
+    display: block;
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .nav-items {
+    display: inline-block;
+    float: left;
+    width: 60%;
+    height: 60px;
+  }
+
+  .nav-item {
+    margin-top: 15px;
+  }
+
+  .buttons {
+    display: inline-block;
+    width: 35%;
+    float: right;
+  }
+
+  .menu-icon:checked + .hamburger + nav {
+    height: 130px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .header {
+    display: block;
+    animation-duration: 0.3s;
+    animation-name: collapse;
+  }
+
+  .menu-icon:checked ~ .nav-items {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 499px) {
+  .menu-icon:checked + .hamburger + nav {
+    height: 190px;
+  }
+
+  .nav-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 60px;
+  }
+  .buttons {
+    float: right;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Main */
+
+main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: url(/assest/section-a-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  padding-top: 100px;
+}
+
+main > .context {
+  width: 100%;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.force-quit-message {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  width: 95%;
+  transform: translateX(-50%);
+  background-color: rgba(220, 46, 60, .9);
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  color: #f6f7eb;
+}
+
+.force-quit-message > span {
+  display: inline-block;
+  margin: 15px 40px;
+}
+
+.force-quit-message > i {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  cursor: pointer;
+}
+
+.slogan {
+  font-size: 45px;
+  padding: 40px 60px;
+  color: #272727;
+  text-shadow: 1px 1px #3f88c5;
+}
+
+.join-them-now {
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #3f88c5;
+  padding: 20px;
+  border-radius: 5px;
+  color: #f6f7eb;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.join-them-now:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px -9px rgba(10, 10, 10, 0.5);
+  text-decoration: none;
+}
+
+form {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 60px 20px;
+}
+
+form > h3 {
+  text-align: start;
+  color: #272727;
+  font-size: 35px;
+}
+
+form > hr {
+  border-color: #272727;
+  background-color: #272727;
+}
+
+form > .err {
+  position: relative;
+  background-color: #dc2e3c;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #f6f7eb;
+  display: none;
+}
+form > .err > .close-err {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+form > p {
+  text-align: start;
+  font-size: 20px;
+  font-weight: 600;
+  color: #272727;
+  margin: 10px 0;
+}
+
+form > input {
+  text-align: start;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #3f88c5;
+  text-indent: 10px;
+  font-size: 20px;
+}
+
+form > button {
+  margin: 0;
+  padding: 10px;
+  margin: 30px 0;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #3f88c5;
+  color: #f6f7eb;
+  border-radius: 5px;
+  border: none;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+form > button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px -9px rgba(10, 10, 10, 0.5);
+  text-decoration: none;
+}
+
+/* Footer*/
+
+footer {
+  width: 100%;
+  background-color: #272727;
+}
+
+footer a {
+  text-align: center;
+  text-decoration: none;
+  color: #f6f7eb;
+  font-size: 14px;
+}
+
+.footer-list {
+  max-width: 400px;
+  width: 50%;
+  margin: 0 auto;
+  padding: 35px 0;
+}
+.footer-list-item {
+  float: left;
+  display: block;
+  width: 25%;
+}
+
+.creator-container {
+  text-align: center;
+  padding-bottom: 20px;
+  color: #f6f7eb;
+}
+
+.creator {
+  display: inline-block;
+}
+
+@media (max-width: 499px) {
+  .footer-list-item {
+    width: 50%;
+  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
